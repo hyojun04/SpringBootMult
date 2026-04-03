@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/include/header :: header}"></head> 
 <body>
-<div th:replace="~{/include/body-header :: bodyHeader"></div>
+<div th:replace="~{/include/body-header :: bodyHeader}"></div>
 <div class="container">
 	<div class="pg-opt">
 	    <div class="row">
@@ -21,7 +21,7 @@
     </div>
 	<span th:text="${message}">message</span>
 	<div class="content">
-		<form action="@{/board/search/1}" method="get">
+		<form th:action="@{/board/search/1}" method="get">
 			<div class="pull-right" style="margin-bottom: 5px;">
 			<div class="col-xs-9">
 		        <input type="text" name="keyword" class="form-control">
@@ -63,7 +63,7 @@
 				<div th:replace="~{/include/paging :: paging}"></div> 
 			</td>
 			<td align="right">
-				<a th:href="@{/board/write/__${categoryId}__"><button type="button" class="btn btn-info" th:text="#{WRITE_NEW_ARTICLE}">WRITE NEW ARTICLE</button></a>
+				<a th:href="@{/board/write/__${categoryId}__}"><button type="button" class="btn btn-info" th:text="#{WRITE_NEW_ARTICLE}">WRITE NEW ARTICLE</button></a>
 			</td>
 		</tr>
 		</table>

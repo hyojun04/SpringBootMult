@@ -19,18 +19,18 @@
         </div>
     </div>
 	<div class="content">
-	<form action="@{/member/insert}" method="post" id="joinForm" class="form-horizontal">
+	<form th:action="@{/member/insert}" method="post" id="joinForm" class="form-horizontal">
 	<input type="hidden" name="csrfToken" th:value="${session.csrfToken}">
 	<div class="form-group">
       <label class="control-label col-sm-2" for="userid" th:text="#{MEMBER_ID}">MEMBER ID</label>
       <div class="col-sm-4">
-        <input type="text" name="userid" id="userid" th:value="${member.userid}" th:readonly="${member.userid!=null}" pattern="|w+" class="form-control" th:placeholder="#{MEMBER_ID}" required>
+        <input type="text" name="userid" id="userid" th:value="${member.userid}" th:readonly="${member.userid!=null}" pattern="\w+" class="form-control" th:placeholder="#{MEMBER_ID}" required>
       </div>
     </div>
 	<div class="form-group">
       <label class="control-label col-sm-2" for="password" th:text="#{MEMBER_PW}">MEMBER PASSWORD</label>
       <div class="col-sm-4">
-        <input type="password" name="password" id="password" th:value="${member.password}" class="form-control" th:title="${PASSWORD_TITLE}" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required>
+        <input type="password" name="password" id="password" th:value="${member.password}" class="form-control" th:title="#{PASSWORD_TITLE}" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required>
       </div>
     </div>
     <div class="form-group">
@@ -47,7 +47,7 @@
       </div>
     </div>
 	<div class="form-group">
-      <label class="control-label col-sm-2" for="phone" th:text="{MEMBER_PHONE}">MEMBER PHONE</label>
+      <label class="control-label col-sm-2" for="phone" th:text="#{MEMBER_PHONE}">MEMBER PHONE</label>
       <div class="col-sm-6">
         <input type="text" name="phone" id="phone" class="form-control" autocomplete="off" required th:value="${member.phone}">
       </div>
