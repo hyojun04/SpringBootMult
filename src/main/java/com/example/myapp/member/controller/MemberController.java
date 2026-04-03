@@ -3,12 +3,15 @@ package com.example.myapp.member.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,9 +25,17 @@ public class MemberController {
 	@Autowired
 	IMemberService memberService;
 
-	@RequestMapping(value="/member/insert", method=RequestMethod.GET)
-	public String insertMember() {
-		logger.info("/member/insert, GET");
+//	@RequestMapping(value="/member/insert", method=RequestMethod.GET)
+//	public String insertMember() {
+//		logger.info("/member/insert, GET");
+//		return "member/form";
+//	}
+	@GetMapping(value="/member/insert")
+	public String insertMember(HttpSession session, Model model) {
+		String csrfToken = UUID.randomUUID().toString();
+		session.setAttribute("csrfToken", csrfToken);
+		logger.info("/member/insert, GET", csrfToken);
+		model.addAttribute("member", new Member());
 		return "member/form";
 	}
 	

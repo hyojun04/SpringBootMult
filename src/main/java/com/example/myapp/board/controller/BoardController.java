@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,8 +54,21 @@ public class BoardController {
 		if(bbsCount > 0) {
 			totalPage= (int)Math.ceil(bbsCount/10.0);
 		}
+		int totalPageBlock = (int)(Math.ceil(totalPage/10.0));
+		int nowPageBlock = (int) Math.ceil(page/10.0);
+		int startPage = (nowPageBlock-1)*10+1;
+		int endPage = 0;
+		if(totalPage > nowPageBlock*10) {
+			endPage = nowPageBlock*10;
+		}else {
+			endPage = totalPage;
+		}
 		model.addAttribute("totalPageCount", totalPage);
-		model.addAttribute("page", page);
+		model.addAttribute("nowPage", page);
+		model.addAttribute("totalPageBlock", totalPageBlock);
+		model.addAttribute("nowPageBlock", nowPageBlock);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 		return "board/list";
 	}
 
@@ -65,6 +80,12 @@ public class BoardController {
 	@RequestMapping("/board/{boardId}/{page}")
 	public String getBoardDetails(@PathVariable int boardId, @PathVariable int page, Model model) {
 		Board board = boardService.selectArticle(boardId);
+		String fileName = board.getFileName();
+		if(fileName!=null) {
+			int fileLength = fileName.length();
+			String fileType = fileName.substring(fileLength-4, fileLength).toUpperCase();
+			model.addAttribute("fileType", fileType);
+		}
 		model.addAttribute("board", board);
 		model.addAttribute("page", page);
 		model.addAttribute("categoryId", board.getCategoryId());
@@ -250,14 +271,29 @@ public class BoardController {
 			if(bbsCount > 0) {
 				totalPage= (int)Math.ceil(bbsCount/10.0);
 			}
-			model.addAttribute("totalPageCount", totalPage);
-			model.addAttribute("page", page);
+			int totalPageBlock = (int)(Math.ceil(totalPage/10.0));
+			int nowPageBlock = (int)Math.ceil(page/10.0);
+			int startPage = (nowPageBlock-1)*10 + 1;
+			int endPage = 0;
 			model.addAttribute("keyword", keyword);
-			logger.info(totalPage + ":" + page + ":" + keyword);
+			model.addAttribute("totalPageCount", totalPage);
+			model.addAttribute("nowPage", page);
+			model.addAttribute("totalPageBlock", totalPageBlock);
+			model.addAttribute("nowPageBlock", nowPageBlock);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+//			logger.info(totalPage + ":" + page + ":" + keyword);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		return "board/search";
 	}
 
+	@ExceptionHandler({RuntimeException.class})
+	public String error(HttpServletRequest request, Exception ex, Model model) {
+		model.addAttribute("exception", ex);
+		model.addAttribute("stackTrace", ex.getStackTrace());
+		model.addAttribute("url", request.getRequestURI());
+		return "error/runtime";
+	}
 }
