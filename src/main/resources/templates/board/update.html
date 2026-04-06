@@ -24,8 +24,8 @@
       <div class="col-sm-4">
         <select name="categoryId" id="categoryId" class="form-control" required>
         	<th:block th:each="category : ${categoryList}">
-        	<option th:value="${category.categoryId}" th:text="${category.categoryName}" th:selected="${category.categoryId eq categoryId}"></option>
-        </th:block>
+        	<option th:value="${category.categoryId}" th:text="${category.categoryName}" th:selected="${category.categoryId eq board.categoryId}"></option>
+        	</th:block>
         </select>
       </div>
     </div>
@@ -45,7 +45,8 @@
       <label class="control-label col-sm-2" for="password" th:text="#{PASSWORD}">PASSWORD</label>
       <div class="col-sm-2">
         <input type="password" name="password" id="password" class="form-control" required>
-      </div><span th:if="${passwordError != null}" th:text="${passwordError}"></span>      
+        <span th:if="${passwordError != null}" th:text="${passwordError}"></span>
+      </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="title" th:text="#{TITLE}">TITLE</label>
