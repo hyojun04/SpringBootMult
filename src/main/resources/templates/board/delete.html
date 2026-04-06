@@ -7,7 +7,7 @@
 	<div class="pg-opt">
         <div class="row">
             <div class="col-md-6 pc">
-                <h2 th:text:="#{DELETE_ARTICLE}">DELETE ARTICLE</h2>
+                <h2 th:text="#{DELETE_ARTICLE}">DELETE ARTICLE</h2>
             </div>
             <div class="col-md-6">
                 <ol class="breadcrumb">
@@ -18,7 +18,7 @@
         </div>
     </div>
 	<div class="content">
-		<h3 th:text:="#{DELETE_MSG}">DELETE MESSAGE</h3>
+		<h3 th:text="#{DELETE_MSG}">DELETE MESSAGE</h3>
 		<form th:action='@{/board/delete}' class="form-inline" method="post">
 		<input type="hidden" name="boardId" th:value="${boardId}">
 		<input type="hidden" name="replyNumber" th:value="${replyNumber}">
@@ -29,7 +29,7 @@
 		<span style="color:red;" th:if="${message != null}"><br>[[#{${message}}]]</span>
 		</div>
 		<div class="col-sm-2">
-		<input type="submit" class="btn btn-danger" th:value="">
+		<input type="submit" class="btn btn-danger" th:value="삭제">
 		</div>
 		</div>
 		</form>

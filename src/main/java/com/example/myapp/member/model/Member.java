@@ -7,6 +7,7 @@ public class Member {
     private String password2;
     private String phone;
     private String email;
+    private String role;
     
 	public String getUserid() {
 		return userid;
@@ -43,6 +44,12 @@ public class Member {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Override
