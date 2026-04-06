@@ -12,6 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import com.example.myapp.common.filter.LoginInterceptor;
+
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 	
@@ -35,6 +37,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
 		lci.setParamName("lang");
 		return lci;
+	}
+	
+	@Bean
+	LoginInterceptor loginEnterceptor() {
+		return new LoginInterceptor();
 	}
 
 	@Override

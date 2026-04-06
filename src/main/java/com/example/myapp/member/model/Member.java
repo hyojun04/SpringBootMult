@@ -7,6 +7,7 @@ public class Member {
     private String password2;
     private String phone;
     private String email;
+    private String role;
     
 	public String getUserid() {
 		return userid;

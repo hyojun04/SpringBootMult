@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/include/header :: header}"></head> 
 <body>
-<div th:replace="~{/include/body-header :: bodyHeader"></div>
+<div th:replace="~{/include/body-header :: bodyHeader}"></div>
 <div class="container">
 	<div class="pg-opt">
         <div class="row">
@@ -56,7 +56,7 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="content" th:text="#{CONTENT}">CONTENT</label>
       <div class="col-sm-8">
-        <textarea name="content" rows="15" cols="100" class="form-control" th:text="${board.content"></textarea>
+        <textarea name="content" rows="15" cols="100" class="form-control" th:text="${board.content}"></textarea>
       </div>
     </div>
     <!-- th:block th:if="${userid!=null}"-->
